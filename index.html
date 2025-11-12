@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virgil Brothers Records</title>
+  <meta name="description" content="Virgil Brothers Records — independent record label." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050505;
+      --card: #111;
+      --muted: #aaa;
+      --accent: #d4af37; /* Gold */
+      --accent-light: #f5d76e;
+      --radius: 18px;
+      --shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #f1f1f1;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      animation: fadeDown 1s ease forwards;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: black;
+      box-shadow: 0 0 10px rgba(212,175,55,0.7);
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 600;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    nav a:hover { color: var(--accent-light); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 56px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 18px;
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 0.5s;
+    }
+
+    /* Sections */
+    section {
+      padding: 70px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h2 {
+      margin-bottom: 24px;
+      font-size: 30px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+      padding-bottom: 6px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Artist Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+    .card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .card:hover {
+      box-shadow: 0 0 25px rgba(212,175,55,0.3);
+    }
+    .card h3 {
+      margin: 10px 0 8px;
+      font-size: 20px;
+      color: var(--accent-light);
+    }
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Staff */
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .staff-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: var(--shadow);
+    }
+    .staff-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(212,175,55,0.25);
+    }
+    .staff-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .staff-card h4 {
+      font-size: 17px;
+      color: var(--accent-light);
+    }
+    .staff-card .role {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .modal-content {
+      background: #151515;
+      padding: 30px;
+      border-radius: var(--radius);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(212,175,55,0.2);
+      transform: scale(0.8);
+      animation: popIn 0.3s forwards;
+    }
+    .modal-content img {
+      width: 120px;
+      border-radius: 50%;
+      margin-bottom: 14px;
+    }
+    .close {
+      position: absolute;
+      top: 20px; right: 30px;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 60px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+    @keyframes fadeUp { from {opacity:0; transform:translateY(40px)} to {opacity:1; transform:translateY(0)} }
+    @keyframes fadeDown { from {opacity:0; transform:translateY(-20px)} to {opacity:1; transform:translateY(0)} }
+    @keyframes float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-10px) } }
+    @keyframes popIn { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><div class="logo">VB</div> Virgil Brothers</div>
+    <nav>
+      <a href="#artists">Artists</a>
+      <a href="#staff">Staff</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Virgil Brothers Records</h1>
+    <p>Independent label curating forward-thinking electronic, hip-hop & ambient music. Built for artists — obsessed with sound.</p>
+  </section>
+
+  <section id="artists">
+    <h2>Artists</h2>
+    <div class="grid">
+      <div class="card"><h3>DJ RABBI</h3><p>Founder Of the Bap Boom device</p></div>
+      <div class="card"><h3>DJ DUDUUL</h3><p>Club Inspired</p></div>
+    </div>
+  </section>
+
+  <section id="staff">
+    <h2>Meet the Staff</h2>
+    <div class="staff-grid">
+      <div class="staff-card" onclick="openModal('john')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Founder">
+        <h4>Virgil Gaylord Sr.</h4>
+        <div class="role">Founder / Producer</div>
+      </div>
+      <div class="staff-card" onclick="openModal('john')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Co-Founder">
+        <h4>Virgil Gaylord Jr.</h4>
+        <div class="role">Co-Founder / Producer</div>
+      </div>
+      <div class="staff-card" onclick="openModal('maya')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Financial Advisor">
+        <h4>Jorge Floyd</h4>
+        <div class="role">Financial Advisor / Audio Engineer & Technician</div>
+      </div>
+      <div class="staff-card" onclick="openModal('john')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Investor">
+        <h4>Rabbi Virgestein</h4>
+        <div class="role">Investor / Executive Advisor</div>
+      </div>
+    </div>
+  </section>
+
+
+<section id="work">
+    <h2>Our Workplace</h2>
+    <div class="work">
+      <div class="work" onclick="openModal('john')">
+<img src="https://mail.google.com/mail/u/0?ui=2&ik=a431119dcf&attid=0.3&permmsgid=msg-a:r-8307896086854940338&th=19a79804f088bfd7&view=fimg&fur=ip&permmsgid=msg-a:r-8307896086854940338&sz=s0-l75-ft&attbid=ANGjdJ_vWZZLkDShcQvg6OkZmK_xL2EwkS9wyRfEeTJNZXQiLpL89ClhuV7zwS7cidcxO7CREibvSCIXR4Tn2-U2bmWLxsb1c7UzmruY-3qxDsQ5ktH7lB_jX_PIlj8&disp=emb&realattid=ii_mhwdtjgg2&zw">
+ <h4>At Virgil Brother's we currently have 34 active employees, with 26 in person.</h4>
+   </div>
+  </div>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>For demos and inquiries, email <a href="mailto:hello@virgilbrothersrecords.com" style="color:var(--accent)">hello@virgilbrothersrecords.com</a></p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Virgil Brothers Records — All rights reserved
+  </footer>
+
+
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function openModal(id) {
+      document.getElementById('modal-' + id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById('modal-' + id).style.display = 'none';
+    }
+    window.onclick = e => {
+      if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+    };
+
+    // Reveal animations on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
