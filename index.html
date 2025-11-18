@@ -235,6 +235,12 @@
     @keyframes fadeDown { from {opacity:0; transform:translateY(-20px)} to {opacity:1; transform:translateY(0)} }
     @keyframes float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-10px) } }
     @keyframes popIn { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
+
+  .image-container img {
+  width: 25%;
+  height: 25%;
+  object-fit: fill;
+}
   </style>
 </head>
 <body>
@@ -265,12 +271,12 @@
     <div class="staff-grid">
       <div class="staff-card" onclick="openModal('john')">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Founder">
-        <h4>Virgil Gaylord Sr.</h4>
+        <h4>Virgil Gaylord I</h4>
         <div class="role">Founder / Producer</div>
       </div>
       <div class="staff-card" onclick="openModal('john')">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYMbZOp1Jj-xgLG24F7EfvM-_phnUhEaa6aXzv3u23vtYrsNsc6FHp-lc3PapUM7Zu78JNqxXmyFL46RCj5C46g5-QdHrfYt5XFUvOwWx&s=10" alt="Co-Founder">
-        <h4>Virgil Gaylord Jr.</h4>
+        <h4>Virgil Gaylord II</h4>
         <div class="role">Co-Founder / Producer</div>
       </div>
       <div class="staff-card" onclick="openModal('maya')">
